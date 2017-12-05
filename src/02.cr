@@ -1,6 +1,6 @@
 require "csv"
 
-PUZZLE_INPUT = File.read(ARGV[0])
+PUZZLE_INPUT = STDIN.gets_to_end
 
 def sum_each_row(input)
   CSV.each_row(input, separator: '\t').sum do |cells|
@@ -26,4 +26,7 @@ def part_two(input)
   end
 end
 
-puts part_one(PUZZLE_INPUT), part_two(PUZZLE_INPUT)
+puts case ARGV[0]
+when "1" then part_one(PUZZLE_INPUT)
+when "2" then part_two(PUZZLE_INPUT)
+end

@@ -1,6 +1,6 @@
 require "benchmark"
 
-PUZZLE_INPUT = ARGV[0].to_u64
+PUZZLE_INPUT = STDIN.gets_to_end.to_u64
 
 class SpiralIterator
   include Iterator(UInt64)
@@ -82,16 +82,15 @@ class SpiralIterator2 < SpiralIterator
   end
 end
 
-results = [] of UInt64 | Iterator::Stop | Nil
-
-Benchmark.bm do |x|
-  x.report("part one:") do
-    results << SpiralIterator.new.skip(PUZZLE_INPUT - 1).next
-  end
-
-  x.report("part two:") do
-    results << SpiralIterator2.new.find { |result| result > PUZZLE_INPUT }
-  end
+def part_one(input)
+  SpiralIterator.new.skip(input - 1).next
 end
 
-puts results.join("\n")
+def part_two(input)
+  SpiralIterator2.new.find { |result| result > input }
+end
+
+puts case ARGV[0]
+when "1" then part_one(PUZZLE_INPUT)
+when "2" then part_two(PUZZLE_INPUT)
+end

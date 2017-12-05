@@ -1,6 +1,4 @@
-require "benchmark"
-
-PUZZLE_INPUT = File.read(ARGV[0])
+PUZZLE_INPUT = STDIN.gets_to_end
 
 def part_one(input)
   sequence = input.each_char.cycle.first(input.size + 1)
@@ -30,20 +28,7 @@ def part_two_zip(input)
   end
 end
 
-results = StaticArray(Int32, 3).new(0)
-
-Benchmark.ips do |x|
-  x.report("part one:") do
-    results[0] = part_one(PUZZLE_INPUT)
-  end
-
-  x.report("part two:") do
-    results[1] = part_two(PUZZLE_INPUT)
-  end
-
-  x.report("part two zip:") do
-    results[2] = part_two_zip(PUZZLE_INPUT)
-  end
+puts case ARGV[0]
+when "1" then part_one(PUZZLE_INPUT)
+when "2" then part_two(PUZZLE_INPUT)
 end
-
-puts results.join("\n")
