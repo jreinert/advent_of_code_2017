@@ -1,0 +1,12 @@
+name: advent_of_code_2017
+version: 3.0
+
+targets:
+  01: { main: src/01.cr }
+  02: { main: src/02.cr }
+  03: { main: src/03.cr }
+
+authors:
+  - Joakim Reinert <mail@jreinert.com>
+
+licence: WTFPL
