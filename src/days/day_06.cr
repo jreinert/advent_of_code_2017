@@ -5,7 +5,6 @@ module Days
     @banks : Array(Int32)
     @previous_states : Set(UInt64)
     @banks_count : Int32
-    @loop_state : UInt64?
 
     def initialize(input)
       super(input)
@@ -13,7 +12,6 @@ module Days
       @banks_count = @banks.size
       @previous_states = Set(UInt64).new
       @cycles = 0
-      @loop_state = nil
     end
 
     def part_one
