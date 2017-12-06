@@ -19,7 +19,7 @@ module Cli
           {% module_name = "Day#{day < 10 ? "0#{day}".id : day}" %}
           {% if Days.has_constant?(module_name) %}
             puts "Waiting for puzzle input..." 
-            Days::{{module_name.id}}.new(STDIN).run(part.to_i)
+            Days::{{module_name.id}}.new(STDIN.gets_to_end).run(part.to_i)
           {% else %}
             abort("Day {{day}} not yet implemented")
           {% end %}

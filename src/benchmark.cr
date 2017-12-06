@@ -13,12 +13,11 @@ macro bench(day, part)
     input_file = ARGV[{{(day - 1) * 2 + part - 1}}]?
     abort("Input file missing for day {{day}} part {{part}}") unless input_file
 
-    File.open(input_file) do |input|
-      time, result = measure do
-        Days::{{module_name.id}}.new(input).run({{part}})
-      end
-      puts "{{day}} {{part}} #{result} #{time}"
+    input = File.read(input_file)
+    time, result = measure do
+      Days::{{module_name.id}}.new(input).run({{part}})
     end
+    puts "{{day}} {{part}} #{result} #{time}"
   {% end %}
 end
 

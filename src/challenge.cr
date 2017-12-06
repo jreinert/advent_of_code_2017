@@ -1,8 +1,7 @@
 abstract class Challenge
   @input : String
 
-  def initialize(input : IO)
-    @input = input.gets_to_end
+  def initialize(@input : String)
   end
 
   abstract def part_one
