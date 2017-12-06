@@ -1,9 +1,10 @@
+require "benchmark"
 require "./days/*"
 
 macro measure
-  started = Time.now
-  result = {{ yield }}
-  { ((Time.now - started).total_milliseconds * 1000).round.to_i, result }
+  result = nil
+  execution_time = Benchmark.measure { result = {{ yield }} }
+  { (execution_time.real * 10**6).round.to_i, result }
 end
 
 macro bench(day, part)
