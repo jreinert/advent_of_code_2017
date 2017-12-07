@@ -18,10 +18,6 @@ module Days
       def initialize(@name : String, @weight : Int32, @disc = [] of String)
       end
 
-      def on_top?
-        @disc.empty?
-      end
-
       def carries?(name)
         @disc.includes?(name)
       end
@@ -35,7 +31,7 @@ module Days
       end
 
       cached :weight, Int32 do
-        @weight + disc.sum(&.weight)
+        disc.sum(&.weight) + @weight
       end
 
       cached :cause_for_imbalance, Program do
@@ -76,7 +72,7 @@ module Days
 
     def part_one
       Program.parse_all(@input)
-      result = Program.each.find(&.on_top?)
+      result = Program.each.first
       return unless result
 
       loop do
