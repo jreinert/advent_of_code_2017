@@ -3,6 +3,8 @@ require "../challenge"
 module Days
   class Day07 < Challenge
     class Program
+      extend Enumerable(Program)
+
       MATCHER = /^(?<name>\w+) \((?<weight>\d+)\)(?: -> (?<disc>.+))?$/
       @@programs = {} of String => Program
 
@@ -65,6 +67,10 @@ module Days
         @@programs.values.each
       end
 
+      def self.each
+        @@programs.values.each { |program| yield program }
+      end
+
       def self.find_by_name(name)
         @@programs[name]
       end
@@ -72,7 +78,7 @@ module Days
 
     def part_one
       Program.parse_all(@input)
-      result = Program.each.first
+      result = Program.first
       return unless result
 
       loop do
@@ -86,7 +92,7 @@ module Days
 
     def part_two
       Program.parse_all(@input)
-      program = Program.each.find(&.unbalanced?).not_nil!
+      program = Program.find(&.unbalanced?).not_nil!
 
       loop do
         cause = program.cause_for_imbalance
