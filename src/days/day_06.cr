@@ -4,14 +4,11 @@ module Days
   class Day06 < Challenge
     @banks : Array(Int32)
     @previous_states : Set(UInt64)
-    @banks_count : Int32
 
     def initialize(input)
       super(input)
       @banks = @input.split('\t').map(&.to_i)
-      @banks_count = @banks.size
       @previous_states = Set(UInt64).new
-      @cycles = 0
     end
 
     def part_one
@@ -22,15 +19,14 @@ module Days
         @previous_states << new_state
       end
 
-      @cycles
+      @previous_states.size + 1
     end
 
     def part_two
       part_one
-      @cycles = 0
       @previous_states.clear
       @previous_states << @banks.hash
-      part_one
+      part_one - 1
     end
 
     private def redistribute!
@@ -39,8 +35,7 @@ module Days
       end
 
       @banks[index] = 0
-      blocks.times { |i| @banks[(index + i + 1) % @banks_count] += 1 }
-      @cycles += 1
+      blocks.times { |i| @banks[(index + i + 1) % @banks.size] += 1 }
     end
   end
 end
