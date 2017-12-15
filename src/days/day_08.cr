@@ -37,6 +37,7 @@ module Days
       {% end %}
     end
 
+    @[AlwaysInline]
     def execute(dest, op, offset)
       case op
       when "inc" then inc(dest, offset.to_i)
